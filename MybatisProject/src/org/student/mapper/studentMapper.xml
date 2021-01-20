@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.student.mapper.StudentMapper">
+	<select id="allstudentBystuno" parameterType="int" resultType="Student">
+		select * from student where stuno = #{stuno}
+	</select>
+	<select id="allstudent"  resultType="Student">
+		select * from student 
+	</select>
+	<!-- 
+		<select id="queryStudentById" parameterType="int" resultMap="queryStudentByIdMap">
+			select id,name from student where id = #{id}
+		</select>
+		<resultMap type="student" id="queryStudentByIdMap">
+			<id property="stuno" column="id"/>
+			<result property="stuname" column="name"/>
+		</resultMap>
+	 -->
+	 <select id="queryStudentAndCardById" parameterType="int" resultType="StudentAndCard">
+			select s.*,c.* from student s inner join card c 
+			on s.cardid=c.cardid
+			where s.stuno=#{stuno}
+	</select>
+	<!-- 通过map来做 一对一 -->
+	<select id="qStudentAndCardById" parameterType="int" resultMap="student_and_card">
+			select s.*,c.* from student s inner join card c 
+			on s.cardid=c.cardid
+			where s.stuno=#{stuno}
+	</select>
+	<!-- association一对一通过这个实现 -->
+	<resultMap type="student" id="student_and_card">
+		<id property="stuno" column="stuno"/>
+		<result property="stuname" column="stuname"/>
+		<result property="stuage" column="stuage"/>
+		<association property="card" javaType="org.student.enyity.StudentCard">
+		<id property="cardid" column="cardid"/>
+		<result property="cardname" column="cardname"/>
+		</association>
+			
+	</resultMap>
+</mapper>

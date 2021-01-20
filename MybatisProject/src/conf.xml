@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 建立文件访问数据库 -->
+<properties resource="db.properties"/>
+<!-- 创捷别名 -->
+<typeAliases>
+	<typeAlias type="org.student.enyity.Student" alias="student"/>
+	<typeAlias type="org.student.enyity.StudentAndCard" alias="StudentAndCard"/>
+</typeAliases>
+<environments default="development">
+<environment id="development">
+<transactionManager type="JDBC"/>
+<dataSource type="POOLED">
+<property name="driver" value="${driver}"/>
+<property name="url" value="${url}"/>
+<property name="username" value="${username}"/>
+<property name="password" value="${password}"/>
+</dataSource>
+</environment>
+</environments>
+<mappers>
+<mapper resource="org/student/mapper/studentMapper.xml"/>
+</mappers>
+</configuration>
